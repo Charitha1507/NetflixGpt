@@ -10,6 +10,6 @@ const appStore = configureStore({
        gpt: gptReducer,
        lang: languageReducer
   }
-});
+});   
 
 export default appStore;

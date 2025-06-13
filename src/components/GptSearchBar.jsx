@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {languageOptions} from '../utils/Textconstants';
- import OpenAI from 'openai';
+import OpenAI from 'openai';
 import {GPT_KEY} from "../utils/constants";
 import {useRef } from 'react';
 
