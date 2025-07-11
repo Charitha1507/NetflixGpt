@@ -1,20 +1,22 @@
-import MovieCard from './MovieCard';
+import MovieCard from "./MovieCard";
 
-const MovieList = ({ title, movies = [] }) => {
+const MovieList = ({ title, movies }) => {
+  console.log(`MovieList - ${title}:`, { title, moviesCount: movies?.length || 0, movies });
+  
   return (
-    <div>
-      <div>
-        <h1 className="text-3xl font-bold p-6 text-black">{title}</h1>
-      </div>
-      <div className="flex overflow-x-scroll justify-center">
-        {movies && movies.length > 0 ? (
-          movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
-        ) : (
-          <p className="text-white">No movies found.</p>
-        )}
+    <div className="px-6 ">
+      <h1 className="text-lg md:text-3xl py-4 text-white">{title}</h1>
+      <div className="flex overflow-x-scroll">
+        <div className="flex flex-col">
+          <h1 className="text-lg md:text-3xl py-4 text-black-500 font-bold">{title}</h1>
+         <div className="flex">
+           {movies?.map((movie) => (
+            <MovieCard key={movie.id} posterPath={movie.poster_path} />
+          ))}
+         </div>
+        </div>
       </div>
     </div>
   );
 };
-
 export default MovieList;

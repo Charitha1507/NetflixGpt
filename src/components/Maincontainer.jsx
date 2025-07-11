@@ -12,12 +12,13 @@ const Maincontainer = () => {
   const title = mainmovie?.original_title;
   const overview = mainmovie?.overview;
   const movie_id = mainmovie?.id;
-  console.log(mainmovie.id);
+  console.log("Selected movie:", mainmovie);
+  console.log("Movie ID for trailer:", movie_id);
 
   return (
     <div>
       <Title title={title} overview={overview} />
-      <Video movie_id={movie_id}/>
+      <Video movieId={movie_id}/>
     </div>
   );
 };

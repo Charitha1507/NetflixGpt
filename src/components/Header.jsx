@@ -16,12 +16,15 @@ const Header = () => {
   const user = useSelector((store) => store.user);
   const gptSearch = useSelector((store) => store.gpt.showGptSearch);
   const lang = useSelector((store) => store.lang.language);
-  const gptsearch= useSelector((store) => store.gpt.showGptSearch);
+
+  // Debug logging
+  console.log("Header - Current state:", { gptSearch, lang, user: !!user });
 
   const handleGptSearch = () => {
-    dispatch(showGptSearchOption(gptSearch));
+    console.log("GPT Search button clicked, current state:", gptSearch);
+    dispatch(showGptSearchOption());
   };
-  const handleLanhuageChange = (e) => {
+  const handleLanguageChange = (e) => {
     dispatch(setLanguage(e.target.value));
   }
 
@@ -60,42 +63,47 @@ const Header = () => {
       <div>
         <img className="w-36" src={NETFLIX_LOGO_URL} alt="logo" />
       </div>
-      <div >
-        <select className="bg-black text-white p-2 rounded-lg " onChange={handleLanhuageChange}>
-          <option value="" disabled selected>
-            Language
-          </option>
-          {language.map((lang) => (
-            <option key={lang.key} value={lang.key}>
-              {lang.name}
-            </option>
-          ))}
-        </select>
+      <div>
+        {gptSearch && (
+          <select
+            className="bg-black text-white p-2 rounded-lg border border-gray-600"
+            value={lang || "en"}
+            onChange={handleLanguageChange}
+          >
+            {language.map((langObj) => (
+              <option key={langObj.key} value={langObj.key}>
+                {langObj.name}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
       {user && (
-        <div className="relative">
-          <img
-            src={user?.photoURL || PROFILE_LOGO}
-            alt="profile"
-            className="w-12 h-12 rounded cursor-pointer hover:opacity-90"
-            onClick={handleProfileClick}
-          />
+        <div className="flex items-center gap-4">
           <button
-            className="py-2 px-4 m-2 bg-purple-800 text-white rounded-lg mx-4"
+            className="py-2 px-4 bg-purple-800 hover:bg-purple-700 text-white rounded-lg transition-colors duration-200"
             onClick={handleGptSearch}
           >
-           {gptsearch ? "Home" : "GPT Search"}
+            {gptSearch ? "Home" : "GPT Search"}
           </button>
-          {showDropdown && (
-            <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg z-20">
-              <button
-                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                onClick={handleSignOut}
-              >
-                Sign Out
-              </button>
-            </div>
-          )}
+          <div className="relative">
+            <img
+              src={user?.photoURL || PROFILE_LOGO}
+              alt="profile"
+              className="w-12 h-12 rounded cursor-pointer hover:opacity-90"
+              onClick={handleProfileClick}
+            />
+            {showDropdown && (
+              <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg z-20">
+                <button
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                  onClick={handleSignOut}
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

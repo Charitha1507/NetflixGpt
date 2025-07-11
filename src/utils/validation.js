@@ -5,7 +5,7 @@ const isValid=(email,password)=>{
 
  if(!emailvalid) return "Invalid Email";
  if(!passwordvalid) return "Invalid Password";
- if(emailvalid&&passwordvalid) return true;
+ if(emailvalid&&passwordvalid) return null;
 }
 
 export default isValid;
